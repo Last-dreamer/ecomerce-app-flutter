@@ -1,8 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecom/models/catergory_model.dart';
+import 'package:ecom/models/product_model.dart';
 import 'package:ecom/widgets/custom_app_bar.dart';
 import 'package:ecom/widgets/custom_nav_bar.dart';
 import 'package:ecom/widgets/hero_carousal_card.dart';
+import 'package:ecom/widgets/product_card.dart';
+import 'package:ecom/widgets/section_title.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -31,17 +34,59 @@ class HomeScreen extends StatelessWidget {
       appBar: const CustomAppBar(
         title: "Ecom Home",
       ),
-      body: CarouselSlider(
-        options: CarouselOptions(
-            aspectRatio: 1.8,
-            viewportFraction: 0.9,
-            enlargeCenterPage: true,
-            enlargeStrategy: CenterPageEnlargeStrategy.height),
-        items: CategoryModel.catergoryList
-            .map((e) => HeroCarousal(categoryModel: e))
-            .toList(),
+      body: Column(
+        children: [
+          CarouselSlider(
+            options: CarouselOptions(
+                aspectRatio: 1.8,
+                viewportFraction: 0.9,
+                enlargeCenterPage: true,
+                enlargeStrategy: CenterPageEnlargeStrategy.height),
+            items: CategoryModel.catergoryList
+                .map((e) => HeroCarousal(categoryModel: e))
+                .toList(),
+          ),
+          const SectionTitle(
+            title: "Recommended",
+          ),
+          //
+
+          ProductCarousal(
+            productList:
+                Product.products.where((e) => e.isRecommended == true).toList(),
+          ),
+        ],
       ),
       bottomNavigationBar: const CustomNavBar(),
+    );
+  }
+}
+
+class ProductCarousal extends StatelessWidget {
+  final List<Product> productList;
+  const ProductCarousal({
+    Key? key,
+    required this.productList,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 165,
+      child: ListView.builder(
+        shrinkWrap: true,
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        scrollDirection: Axis.horizontal,
+        itemCount: productList.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: ProductCard(
+              product: productList[index],
+            ),
+          );
+        },
+      ),
     );
   }
 }
