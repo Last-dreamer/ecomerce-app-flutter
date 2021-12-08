@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
-  const ProductCard({Key? key, required this.product}) : super(key: key);
+  final double widthFactor;
+  const ProductCard({Key? key, required this.product, this.widthFactor = 2.5}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         SizedBox(
-          width: MediaQuery.of(context).size.width / 2.5,
+          width: MediaQuery.of(context).size.width / widthFactor,
           height: 150,
           child: Image.network(
             product.imageUrl,

@@ -11,7 +11,7 @@ class CategoryModel extends Equatable {
 
   static List<CategoryModel> catergoryList = [
     const CategoryModel(
-        name: 'Beverages', imageUrl: 'https://i.ibb.co/cvpntL1/coca-cola.png'),
+        name: 'pepsi', imageUrl: 'https://i.ibb.co/cvpntL1/coca-cola.png'),
     const CategoryModel(
         name: 'Condiments',
         imageUrl: 'https://i.ibb.co/px2tCc3/burger-king.png'),
