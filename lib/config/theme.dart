@@ -42,12 +42,12 @@ TextTheme textTheme() {
     ),
     bodyText1: TextStyle(
       color: Colors.white,
-      fontSize: 12,
+      fontSize: 16,
       fontWeight: FontWeight.normal,
     ),
     bodyText2: TextStyle(
       color: Colors.white,
-      fontSize: 10,
+      fontSize: 14,
       fontWeight: FontWeight.normal,
     ),
   );
