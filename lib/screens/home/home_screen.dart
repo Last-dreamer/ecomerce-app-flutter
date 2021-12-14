@@ -4,18 +4,18 @@ import 'package:ecom/models/product_model.dart';
 import 'package:ecom/widgets/custom_app_bar.dart';
 import 'package:ecom/widgets/custom_nav_bar.dart';
 import 'package:ecom/widgets/hero_carousal_card.dart';
-import 'package:ecom/widgets/product_card.dart';
+
 import 'package:ecom/widgets/product_carousal.dart';
 import 'package:ecom/widgets/section_title.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
   static const String routeName = "/";
 
   static Route route() {
     return MaterialPageRoute<void>(
-      builder: (context) => HomeScreen(),
+      builder: (context) => const HomeScreen(),
       settings: const RouteSettings(name: routeName),
     );
   }
@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
       appBar: const CustomAppBar(
         title: "Ecom Home",
       ),
-      body: Column(
+      body: ListView(
         children: [
           CarouselSlider(
             options: CarouselOptions(
@@ -41,11 +41,14 @@ class HomeScreen extends StatelessWidget {
           const SectionTitle(
             title: "Recommended",
           ),
-          ProductCarousal(productList:
-                Product.products.where((e) => e.isRecommended == true).toList(),),
-
+          ProductCarousal(
+            productList:
+                Product.products.where((e) => e.isRecommended == true).toList(),
+          ),
           const SectionTitle(title: "Popular"),
-          ProductCarousal(productList: Product.products.where((e) => e.isPopular == true).toList()),
+          ProductCarousal(
+              productList:
+                  Product.products.where((e) => e.isPopular == true).toList()),
         ],
       ),
       bottomNavigationBar: const CustomNavBar(),

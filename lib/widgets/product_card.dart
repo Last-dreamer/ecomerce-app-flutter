@@ -4,13 +4,21 @@ import 'package:flutter/material.dart';
 class ProductCard extends StatelessWidget {
   final Product product;
   final double widthFactor;
-  const ProductCard({Key? key, required this.product, this.widthFactor = 2.5}) : super(key: key);
+  final double leftPosition;
+  final bool wishList;
+  const ProductCard(
+      {Key? key,
+      required this.product,
+      this.widthFactor = 2.5,
+      this.leftPosition = 0,
+      this.wishList = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-          Navigator.pushNamed(context, "/product", arguments: product);
+      onTap: () {
+        Navigator.pushNamed(context, "/product", arguments: product);
       },
       child: Stack(
         children: [
@@ -24,6 +32,7 @@ class ProductCard extends StatelessWidget {
           ),
           Positioned(
               top: 60,
+              left: leftPosition,
               height: 80,
               child: Container(
                   width: MediaQuery.of(context).size.width / 2.5,
@@ -31,9 +40,9 @@ class ProductCard extends StatelessWidget {
                   color: Colors.black.withAlpha(50))),
           Positioned(
             top: 85,
-            left: 5,
+            left: leftPosition,
             child: Container(
-              width: MediaQuery.of(context).size.width / 2.5 - 10,
+              width: MediaQuery.of(context).size.width / 2.5,
               height: 60,
               color: Colors.black,
               child: Padding(
@@ -44,14 +53,16 @@ class ProductCard extends StatelessWidget {
                       flex: 3,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        // mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            product.name,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline3!
-                                .copyWith(color: Colors.white),
+                          RichText(
+                            text: TextSpan(
+                              text: product.name,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline3!
+                                  .copyWith(color: Colors.white),
+                            ),
                           ),
                           Text(
                             product.price.toString(),
@@ -70,7 +81,17 @@ class ProductCard extends StatelessWidget {
                             Icons.add_circle,
                             color: Colors.white,
                           )),
-                    )
+                    ),
+                    wishList
+                        ? Center(
+                            child: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.favorite,
+                                  color: Colors.white,
+                                )),
+                          )
+                        : Container(),
                   ],
                 ),
               ),

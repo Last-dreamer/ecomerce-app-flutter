@@ -1,9 +1,10 @@
+import 'package:ecom/blocs/wishlist/wishlist_bloc.dart';
 import 'package:ecom/config/app_router.dart';
 import 'package:ecom/config/theme.dart';
 import 'package:ecom/screens/home/home_screen.dart';
-import 'package:ecom/widgets/custom_app_bar.dart';
-import 'package:ecom/widgets/custom_nav_bar.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,10 +15,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: theme(),
-      onGenerateRoute: AppRouter.onGenerateRoute,
-      home: HomeScreen(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => WishlistBloc()..add(StartWishList())),
+      ],
+      child: MaterialApp(
+        theme: theme(),
+        onGenerateRoute: AppRouter.onGenerateRoute,
+        home: const HomeScreen(),
+      ),
     );
   }
 }

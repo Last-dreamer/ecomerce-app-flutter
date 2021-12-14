@@ -1,11 +1,13 @@
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:ecom/blocs/wishlist/wishlist_bloc.dart';
 import 'package:ecom/config/theme.dart';
 import 'package:ecom/models/product_model.dart';
 import 'package:ecom/widgets/custom_app_bar.dart';
 import 'package:ecom/widgets/custom_nav_bar.dart';
 import 'package:ecom/widgets/hero_carousal_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductDetail extends StatelessWidget {
   const ProductDetail({Key? key, required this.product}) : super(key: key);
@@ -31,12 +33,42 @@ class ProductDetail extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              IconButton(onPressed: (){}, icon: const Icon(Icons.share, color: Colors.white,),),
-              IconButton(onPressed: (){}, icon: const Icon(Icons.favorite, color: Colors.white,),),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.share,
+                  color: Colors.white,
+                ),
+              ),
+              BlocBuilder<WishlistBloc, WishlistState>(
+                builder: (context, state) {
+                  return IconButton(
+                    onPressed: () {
+                      print("printing ");
+                      context
+                          .read<WishlistBloc>()
+                          .add(AddWishListProduct(product));
+                      var snackbar = const SnackBar(
+                          content: Text("product added to your wishlist"));
+                      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                    },
+                    icon: const Icon(
+                      Icons.favorite,
+                      color: Colors.white,
+                    ),
+                  );
+                },
+              ),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Colors.white),
-                  onPressed: (){}, child: Text("Add To Cart",
-                style: Theme.of(context).textTheme.headline3!.copyWith(color: Colors.black),)),
+                  onPressed: () {},
+                  child: Text(
+                    "Add To Cart",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline3!
+                        .copyWith(color: Colors.black),
+                  )),
             ],
           ),
         ),

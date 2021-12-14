@@ -48,7 +48,7 @@ class Product extends Equatable {
         isRecommended: true,
         isPopular: false),
     const Product(
-        name: 'bags 3',
+        name: 'bags3',
         category: 'bags',
         imageUrl:
             "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
@@ -85,7 +85,7 @@ class Product extends Equatable {
         isRecommended: false,
         isPopular: true),
     const Product(
-        name: 'bags 3',
+        name: 'bags 3asdfasd',
         category: 'bags',
         imageUrl:
             "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
