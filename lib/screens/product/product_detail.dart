@@ -28,7 +28,7 @@ class ProductDetail extends StatelessWidget {
       appBar: CustomAppBar(title: product.name),
       bottomNavigationBar: BottomAppBar(
         color: Colors.black,
-        child: Container(
+        child: SizedBox(
           height: 70,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -44,7 +44,6 @@ class ProductDetail extends StatelessWidget {
                 builder: (context, state) {
                   return IconButton(
                     onPressed: () {
-                      print("printing ");
                       context
                           .read<WishlistBloc>()
                           .add(AddWishListProduct(product));
@@ -131,7 +130,7 @@ class ProductDetail extends StatelessWidget {
               title: Text("Product Information",
                   style: Theme.of(context)
                       .textTheme
-                      .headline2!
+                      .headline3!
                       .copyWith(color: Colors.black)),
               children: [
                 ListTile(
@@ -152,7 +151,7 @@ class ProductDetail extends StatelessWidget {
               title: Text("Delivery Information",
                   style: Theme.of(context)
                       .textTheme
-                      .headline2!
+                      .headline3!
                       .copyWith(color: Colors.black)),
               children: [
                 ListTile(
