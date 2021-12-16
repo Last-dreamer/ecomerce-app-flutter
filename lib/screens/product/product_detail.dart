@@ -26,7 +26,7 @@ class ProductDetail extends StatelessWidget {
       appBar: CustomAppBar(title: product.name),
       bottomNavigationBar: BottomAppBar(
         color: Colors.black,
-        child: Container(
+        child: SizedBox(
           height: 70,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
