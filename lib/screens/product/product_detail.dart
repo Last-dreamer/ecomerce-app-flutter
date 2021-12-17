@@ -112,7 +112,7 @@ class ProductDetail extends StatelessWidget {
                               .headline3!
                               .copyWith(color: Colors.white),
                         ),
-                        Text(product.price,
+                        Text("\$${product.price}",
                             style: Theme.of(context)
                                 .textTheme
                                 .headline3!

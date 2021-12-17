@@ -4,7 +4,7 @@ class Product extends Equatable {
   final String name;
   final String category;
   final String imageUrl;
-  final String price;
+  final double price;
   final bool isRecommended;
   final bool isPopular;
 
@@ -26,7 +26,7 @@ class Product extends Equatable {
         category: 'pepsi',
         imageUrl:
             "https://images.unsplash.com/photo-1553456558-aff63285bdd1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-        price: '\$20',
+        price: 10,
         isRecommended: true,
         isPopular: false),
 
@@ -35,7 +35,7 @@ class Product extends Equatable {
         category: 'bags',
         imageUrl:
             "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-        price: '\$20',
+        price: 120,
         isRecommended: true,
         isPopular: false),
 
@@ -44,7 +44,7 @@ class Product extends Equatable {
         category: 'pepsi',
         imageUrl:
             "https://images.unsplash.com/photo-1553456558-aff63285bdd1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-        price: '\$20',
+        price: 320,
         isRecommended: true,
         isPopular: false),
     const Product(
@@ -52,7 +52,7 @@ class Product extends Equatable {
         category: 'bags',
         imageUrl:
             "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-        price: '\$20',
+        price: 20,
         isRecommended: true,
         isPopular: false),
 
@@ -63,7 +63,7 @@ class Product extends Equatable {
         category: 'pepsi',
         imageUrl:
             "https://images.unsplash.com/photo-1553456558-aff63285bdd1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-        price: '\$20',
+        price: 30,
         isRecommended: true,
         isPopular: true),
 
@@ -72,7 +72,7 @@ class Product extends Equatable {
         category: 'bags',
         imageUrl:
             "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-        price: '\$20',
+        price: 200,
         isRecommended: false,
         isPopular: true),
 
@@ -81,7 +81,7 @@ class Product extends Equatable {
         category: 'pepsi',
         imageUrl:
             "https://images.unsplash.com/photo-1553456558-aff63285bdd1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-        price: '\$20',
+        price: 50,
         isRecommended: false,
         isPopular: true),
     const Product(
@@ -89,7 +89,7 @@ class Product extends Equatable {
         category: 'bags',
         imageUrl:
             "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-        price: '\$20',
+        price: 10,
         isRecommended: false,
         isPopular: true),
   ];

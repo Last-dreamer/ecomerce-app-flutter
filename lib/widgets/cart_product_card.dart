@@ -1,3 +1,4 @@
+import 'package:ecom/models/cart_model.dart';
 import 'package:ecom/models/product_model.dart';
 
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class CartProductCard extends StatelessWidget {
                         .headline4!
                         .copyWith(color: Colors.black)),
                 const SizedBox(height: 5),
-                Text(product.price,
+                Text("\$${product.price}",
                     style: Theme.of(context)
                         .textTheme
                         .headline4!
