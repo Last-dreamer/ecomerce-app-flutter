@@ -1,11 +1,14 @@
+import 'package:ecom/blocs/cart/cart_bloc.dart';
 import 'package:ecom/models/cart_model.dart';
 import 'package:ecom/models/product_model.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartProductCard extends StatelessWidget {
   final Product product;
-  const CartProductCard({Key? key, required this.product}) : super(key: key);
+  final int quantity;
+  const CartProductCard({Key? key, required this.product, required this.quantity}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +28,15 @@ class CartProductCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(product.name,
-                    style: Theme.of(context)
+                    style: Theme
+                        .of(context)
                         .textTheme
                         .headline4!
                         .copyWith(color: Colors.black)),
                 const SizedBox(height: 5),
                 Text("\$${product.price}",
-                    style: Theme.of(context)
+                    style: Theme
+                        .of(context)
                         .textTheme
                         .headline4!
                         .copyWith(color: Colors.black)),
@@ -43,18 +48,37 @@ class CartProductCard extends StatelessWidget {
           ),
           Row(
             children: [
-              IconButton(
-                icon: const Icon(Icons.remove),
-                onPressed: () {},
+              BlocBuilder<CartBloc, CartState>(
+                builder: (context, state) {
+                  return IconButton(
+                    icon: const Icon(Icons.remove),
+                    onPressed: () {
+                      context.read<CartBloc>().add(CartProductRemoved(product));
+                      var snackbar =
+                      const SnackBar(content: Text("Removed from Cart"));
+                      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                    },
+                  );
+                },
               ),
-              Text("1",
-                  style: Theme.of(context)
+              Text("${quantity}",
+                  style: Theme
+                      .of(context)
                       .textTheme
                       .headline2!
                       .copyWith(color: Colors.black)),
-              IconButton(
-                icon: const Icon(Icons.add),
-                onPressed: () {},
+              BlocBuilder<CartBloc, CartState>(
+                builder: (context, state) {
+                  return IconButton(
+                    icon: const Icon(Icons.add),
+                    onPressed: () {
+                      context.read<CartBloc>().add(CartProductAdded(product));
+                      var snackbar =
+                      const SnackBar(content: Text("Added to Cart"));
+                      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                    },
+                  );
+                },
               ),
             ],
           ),

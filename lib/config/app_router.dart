@@ -1,12 +1,12 @@
 import 'package:ecom/models/catergory_model.dart';
 import 'package:ecom/models/product_model.dart';
+import 'package:ecom/screens/Splash/splash_screen.dart';
 import 'package:ecom/screens/cart/cart_screen.dart';
 import 'package:ecom/screens/catalog/catalog_screen.dart';
 import 'package:ecom/screens/home/home_screen.dart';
 import 'package:ecom/screens/product/product_detail.dart';
 import 'package:ecom/screens/wishlist/wishlist_screen.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 
 import '../models/catergory_model.dart';
@@ -16,6 +16,8 @@ class AppRouter {
     switch (settings.name) {
       case '/':
         return HomeScreen.route();
+      case '/splash':
+        return SplashScreen.route();
       case '/cart':
         return CartScreen.route();
       case '/catalog':

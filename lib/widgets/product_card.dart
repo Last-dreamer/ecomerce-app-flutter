@@ -1,11 +1,14 @@
+import 'package:ecom/blocs/cart/cart_bloc.dart';
 import 'package:ecom/models/product_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
   final double widthFactor;
   final double leftPosition;
   final bool wishList;
+
   const ProductCard(
       {Key? key,
       required this.product,
@@ -74,13 +77,28 @@ class ProductCard extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Center(
-                      child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.add_circle,
-                            color: Colors.white,
-                          )),
+                    BlocBuilder<CartBloc, CartState>(
+                      builder: (context, state) {
+                        if(state is CartLoading){
+                          return const  CircularProgressIndicator();
+                        }
+                        if(state is CartLoaded){
+                          return Center(
+                            child: IconButton(
+                                onPressed: () {
+                                  context.read<CartBloc>().add(CartProductAdded(product));
+                                  var snackbar = const  SnackBar(content: Text("Added to Cart"));
+                                  ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                                },
+                                icon: const Icon(
+                                  Icons.add_circle,
+                                  color: Colors.white,
+                                )),
+                          );
+                        }else {
+                          return const Text("Some Error");
+                        }
+                      },
                     ),
                     wishList
                         ? Center(
