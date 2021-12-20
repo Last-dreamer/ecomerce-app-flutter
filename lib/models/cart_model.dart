@@ -6,8 +6,6 @@ import 'package:equatable/equatable.dart';
 class Cart extends Equatable {
   final List<Product> products;
    const Cart({this.products = const <Product>[]});
-
-
   
   double get subTotal => products.fold<double>(0, (prev, c) => prev + c.price );
 
@@ -37,7 +35,7 @@ class Cart extends Equatable {
   String get freeDeliveryFeeString => freeDeliveryFee(subTotal).toStringAsFixed(2);
 
   String get freeDeliveryString => freeDelivery(subTotal);
-  double get totalString => total(subTotal, freeDeliveryFee(subTotal));
+  String get totalString => total(subTotal, freeDeliveryFee(subTotal)).toStringAsFixed(2);
 
   @override
   List<Object?> get props => [products];

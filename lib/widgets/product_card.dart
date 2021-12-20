@@ -9,11 +9,13 @@ class ProductCard extends StatelessWidget {
   final double leftPosition;
   final bool wishList;
 
+
   const ProductCard(
       {Key? key,
       required this.product,
       this.widthFactor = 2.5,
       this.leftPosition = 0,
+
       this.wishList = false})
       : super(key: key);
 
@@ -45,7 +47,7 @@ class ProductCard extends StatelessWidget {
             top: 85,
             left: leftPosition,
             child: Container(
-              width: MediaQuery.of(context).size.width / 2.5,
+              width: MediaQuery.of(context).size.width / (wishList ? 2.0 : 2.5),
               height: 60,
               color: Colors.black,
               child: Padding(
@@ -53,30 +55,26 @@ class ProductCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Expanded(
-                      flex: 3,
-                      child: Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          // mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                text: product.name,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline3!
-                                    .copyWith(color: Colors.white),
-                              ),
-                            ),
-                            Text(
-                              product.price.toString(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline5!
-                                  .copyWith(color: Colors.white),
-                            ),
-                          ],
-                        ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            product.name,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2!
+                                .copyWith(color: Colors.white),
+                          ),
+                          const SizedBox(height: 2,),
+                          Text(
+                            product.price.toString(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline5!
+                                .copyWith(color: Colors.white),
+                          ),
+                        ],
                       ),
                     ),
                     BlocBuilder<CartBloc, CartState>(

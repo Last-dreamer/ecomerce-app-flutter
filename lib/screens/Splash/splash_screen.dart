@@ -24,9 +24,13 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer(const  Duration(seconds: 2), ()=> Navigator.pushNamed(context, "/"));
-    return  Scaffold(
-      body: Center(child: Image.asset("assets/dreamer.png"),)
-    );
+    Timer(
+        const Duration(seconds: 2),
+        () =>
+            Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false));
+    return Scaffold(
+        body: Center(
+      child: Image.asset("assets/dreamer.png"),
+    ));
   }
 }

@@ -1,9 +1,12 @@
 import 'package:ecom/blocs/cart/cart_bloc.dart';
 import 'package:ecom/models/cart_model.dart';
 import 'package:ecom/models/product_model.dart';
+import 'package:ecom/screens/Splash/splash_screen.dart';
+import 'package:ecom/screens/checkout/checkout_screen.dart';
 import 'package:ecom/widgets/cart_product_card.dart';
 import 'package:ecom/widgets/custom_app_bar.dart';
 import 'package:ecom/widgets/custom_nav_bar.dart';
+import 'package:ecom/widgets/order_summery.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,7 +35,9 @@ class CartScreen extends StatelessWidget {
               children: [
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(primary: Colors.white),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, CheckOutScreen.routeName);
+                    },
                     child: Text(
                       "GO TO CHECKOUT",
                       style: Theme
@@ -102,89 +107,7 @@ class CartScreen extends StatelessWidget {
                         )
                       ],
                     ),
-                    Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 20),
-                          child: Column(
-                            children: [
-                              const Divider(
-                                thickness: 2,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("SUBTOTAL",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline5!
-                                          .copyWith(color: Colors.black)),
-                                  Text("\$${ state.cart.totalString}",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline5!
-                                          .copyWith(color: Colors.black)),
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("Delivery Fee",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline5!
-                                          .copyWith(color: Colors.black)),
-                                  Text("\$${state.cart.freeDeliveryFeeString}",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline5!
-                                          .copyWith(color: Colors.black)),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        Stack(
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                color: Colors.black.withAlpha(50),
-                              ),
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              margin: const EdgeInsets.all(8.0),
-                              height: 45,
-                              decoration: const BoxDecoration(
-                                color: Colors.black,
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 15),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text("TOTAL",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline3!
-                                            .copyWith(color: Colors.white)),
-                                    Text("\$${state.cart.totalString}",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline3!
-                                            .copyWith(color: Colors.white)),
-                                  ],
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
+                   const OrderSummery(),
                   ],
                 ),
               );

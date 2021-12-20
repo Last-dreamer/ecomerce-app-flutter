@@ -3,6 +3,7 @@ import 'package:ecom/models/product_model.dart';
 import 'package:ecom/screens/Splash/splash_screen.dart';
 import 'package:ecom/screens/cart/cart_screen.dart';
 import 'package:ecom/screens/catalog/catalog_screen.dart';
+import 'package:ecom/screens/checkout/checkout_screen.dart';
 import 'package:ecom/screens/home/home_screen.dart';
 import 'package:ecom/screens/product/product_detail.dart';
 import 'package:ecom/screens/wishlist/wishlist_screen.dart';
@@ -28,6 +29,8 @@ class AppRouter {
 
       case '/wishlist':
         return WishListScreen.route();
+      case '/checkout':
+        return CheckOutScreen.route();
 
       default:
         return _errorRoute();

@@ -7,6 +7,7 @@ import 'package:ecom/config/theme.dart';
 import 'package:ecom/repositories/category/category_repository.dart';
 import 'package:ecom/repositories/product/product_repository.dart';
 import 'package:ecom/screens/Splash/splash_screen.dart';
+import 'package:ecom/screens/checkout/checkout_screen.dart';
 import 'package:ecom/screens/home/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         theme: theme(),
         onGenerateRoute: AppRouter.onGenerateRoute,
-        initialRoute: "/splash",
+        initialRoute: SplashScreen.routeName,
       ),
     );
   }
