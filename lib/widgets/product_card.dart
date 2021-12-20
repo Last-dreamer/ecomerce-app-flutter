@@ -54,27 +54,29 @@ class ProductCard extends StatelessWidget {
                   children: [
                     Expanded(
                       flex: 3,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          RichText(
-                            text: TextSpan(
-                              text: product.name,
+                      child: Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          // mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                text: product.name,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline3!
+                                    .copyWith(color: Colors.white),
+                              ),
+                            ),
+                            Text(
+                              product.price.toString(),
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline3!
+                                  .headline5!
                                   .copyWith(color: Colors.white),
                             ),
-                          ),
-                          Text(
-                            product.price.toString(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline5!
-                                .copyWith(color: Colors.white),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     BlocBuilder<CartBloc, CartState>(
