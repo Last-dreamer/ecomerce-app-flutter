@@ -19,7 +19,6 @@ class CartLoaded extends CartState {
 class CartError extends CartState{
   @override
   List<Object?> get props => throw UnimplementedError();
-
 }
 
 

@@ -5,8 +5,10 @@ import 'package:ecom/models/cart_model.dart';
 import 'package:ecom/models/product_model.dart';
 import 'package:equatable/equatable.dart';
 
+
 part 'cart_event.dart';
 part 'cart_state.dart';
+
 
 class CartBloc extends Bloc<CartEvent, CartState> {
   CartBloc() : super(CartLoading());

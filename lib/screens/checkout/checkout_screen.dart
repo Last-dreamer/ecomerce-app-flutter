@@ -1,3 +1,4 @@
+import 'package:ecom/blocs/checkout/checkout_bloc.dart';
 import 'package:ecom/blocs/wishlist/wishlist_bloc.dart';
 import 'package:ecom/models/product_model.dart';
 import 'package:ecom/widgets/custom_app_bar.dart';
@@ -18,16 +19,8 @@ class CheckOutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController nameController = TextEditingController();
-    TextEditingController emailController = TextEditingController();
-    TextEditingController addressController = TextEditingController();
-
-    TextEditingController cityController = TextEditingController();
-    TextEditingController countryController = TextEditingController();
-    TextEditingController zipCodeController = TextEditingController();
-
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: false,
         appBar: const CustomAppBar(
           title: 'CheckOut',
         ),
@@ -38,61 +31,112 @@ class CheckOutScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(primary: Colors.white),
-                    onPressed: () {},
-                    child: Text(
-                      "ORDER NOW",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline2!
-                          .copyWith(color: Colors.black),
-                    )),
+                BlocBuilder<CheckoutBloc, CheckoutState>(
+                  builder: (context, state) {
+                   if(state is CheckoutLoading){
+                     return const Center(child: CircularProgressIndicator(),);
+                   }
+                   if(state is CheckoutLoaded){
+                     return ElevatedButton(
+                         style: ElevatedButton.styleFrom(primary: Colors.white),
+                         onPressed: () {
+                           context.read<CheckoutBloc>().add(ConfirmCheckout(checkout: state.checkout));
+                           Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
+                         },
+                         child: Text(
+                           "ORDER NOW",
+                           style: Theme.of(context)
+                               .textTheme
+                               .headline2!
+                               .copyWith(color: Colors.black),
+                         ));
+                   }else {
+                     return const Text("something went wrong...");
+                   }
+                  },
+                ),
               ],
             ),
           ),
         ),
         body: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "CUSTOMER INFORMATION",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline2!
-                    .copyWith(color: Colors.black),
-              ),
-              _buildTextFormField(emailController, context, "Email"),
-              _buildTextFormField(nameController, context, "Full Name"),
-              Text(
-                "DELIVERY INFORMATION",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline2!
-                    .copyWith(color: Colors.black),
-              ),
-              _buildTextFormField(addressController, context, "Address"),
-              _buildTextFormField(cityController, context, "City"),
-              _buildTextFormField(countryController, context, "Country"),
-              _buildTextFormField(zipCodeController, context, "Zip Code"),
-              Text(
-                "ORDER SUMMERY",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline2!
-                    .copyWith(color: Colors.black),
-              ),
-                Center(child: OrderSummery()),
-            ],
+          child: BlocBuilder<CheckoutBloc, CheckoutState>(
+            builder: (context, state) {
+              if (state is CheckoutLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (state is CheckoutLoaded) {
+                return
+                  // Text("hello");
+                  Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "CUSTOMER INFORMATION",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline2!
+                          .copyWith(color: Colors.black),
+                    ),
+                    _buildTextFormField((v) {
+                      context
+                          .read<CheckoutBloc>()
+                          .add(UpdateCheckout(email: v));
+                    }, context, "Email"),
+                    _buildTextFormField((v) {
+                      context
+                          .read<CheckoutBloc>()
+                          .add(UpdateCheckout(fullName: v));
+                    }, context, "Full Name"),
+                    Text(
+                      "DELIVERY INFORMATION",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline2!
+                          .copyWith(color: Colors.black),
+                    ),
+                    _buildTextFormField((v) {
+                      context
+                          .read<CheckoutBloc>()
+                          .add(UpdateCheckout(address: v));
+                    }, context, "Address"),
+                    _buildTextFormField((v) {
+                      context.read<CheckoutBloc>().add(UpdateCheckout(city: v));
+                    }, context, "City"),
+                    _buildTextFormField((v) {
+                      context
+                          .read<CheckoutBloc>()
+                          .add(UpdateCheckout(country: v));
+                    }, context, "Country"),
+                    _buildTextFormField((v) {
+                      context
+                          .read<CheckoutBloc>()
+                          .add(UpdateCheckout(zipCode: v));
+                    }, context, "Zip Code"),
+                    Text(
+                      "ORDER SUMMERY",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline2!
+                          .copyWith(color: Colors.black),
+                    ),
+                    const Center(child: OrderSummery()),
+                  ],
+                );
+              } else {
+                return const Text("something went wrong");
+              }
+            },
           ),
         ));
   }
 
-  Padding _buildTextFormField(TextEditingController controller,
-      BuildContext context, String lableText) {
+  Padding _buildTextFormField(
+      Function(String?) onChange, BuildContext context, String lableText) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -109,7 +153,7 @@ class CheckOutScreen extends StatelessWidget {
           ),
           Expanded(
               child: TextFormField(
-            controller: controller,
+            onChanged: onChange,
             decoration: const InputDecoration(
                 isDense: true,
                 contentPadding: EdgeInsets.only(left: 10),
