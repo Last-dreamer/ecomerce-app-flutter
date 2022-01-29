@@ -7,48 +7,50 @@ part 'wishlist_event.dart';
 part 'wishlist_state.dart';
 
 class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
-  WishlistBloc() : super(WishlistLoading());
-
-  @override
-  Stream<WishlistState> mapEventToState(WishlistEvent event) async* {
-    if (event is StartWishList) {
-      yield* _mapStartWishListToState();
-    } else if (event is AddWishListProduct) {
-      yield* _mapAddToWishListToState(event, state);
-    } else if (event is RemoveWishListProduct) {
-      yield* _mapRemoveFromWishListToState(event, state);
-    }
+  WishlistBloc() : super(WishlistLoading()){
+    on<LoadWishList>(_LoadWishList);
+    on<AddProductToWishList>(_AddProductToWishList);
+    on<RemoveProductFromWistList>(_RemoveProductFromWistList);
   }
 
-  Stream<WishlistState> _mapStartWishListToState() async* {
-    yield WishlistLoading();
+
+  _LoadWishList(event, Emitter<WishlistState> emit) async {
+     emit(WishlistLoading());
     try {
       await Future.delayed(const Duration(seconds: 1));
-      yield const WishlistLoaded();
+      emit(const WishlistLoaded());
     } catch (_) {}
   }
 
-  Stream<WishlistState> _mapAddToWishListToState(
-      AddWishListProduct event, WishlistState state) async* {
+  _AddProductToWishList(event, Emitter<WishlistState> emit) async {
+    var state  = this.state;
     if (state is WishlistLoaded) {
       try {
-        yield WishlistLoaded(
+        emit(WishlistLoaded(
             wishList: WishList(
                 products: List.from(state.wishList.products)
-                  ..add(event.product)));
+                  ..add(event.product))));
       } catch (_) {}
     }
   }
 
-  Stream<WishlistState> _mapRemoveFromWishListToState(
-      RemoveWishListProduct event, WishlistState state) async* {
+
+
+
+  _RemoveProductFromWistList(event, Emitter<WishlistState> emit) async {
+
+    var state =  this.state;
     if (state is WishlistLoaded) {
       try {
-        yield WishlistLoaded(
+        emit(WishlistLoaded(
             wishList: WishList(
                 products: List.from(state.wishList.products)
-                  ..remove(event.product)));
+                  ..remove(event.product))));
       } catch (_) {}
-    }
+
   }
+
+}
+
+
 }

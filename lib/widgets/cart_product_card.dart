@@ -53,7 +53,7 @@ class CartProductCard extends StatelessWidget {
                   return IconButton(
                     icon: const Icon(Icons.remove),
                     onPressed: () {
-                      context.read<CartBloc>().add(CartProductRemoved(product));
+                      context.read<CartBloc>().add(RemovedCart(product));
                       var snackbar =
                       const SnackBar(content: Text("Removed from Cart"));
                       ScaffoldMessenger.of(context).showSnackBar(snackbar);
@@ -72,7 +72,7 @@ class CartProductCard extends StatelessWidget {
                   return IconButton(
                     icon: const Icon(Icons.add),
                     onPressed: () {
-                      context.read<CartBloc>().add(CartProductAdded(product));
+                      context.read<CartBloc>().add(AddCart(product));
                       var snackbar =
                       const SnackBar(content: Text("Added to Cart"));
                       ScaffoldMessenger.of(context).showSnackBar(snackbar);

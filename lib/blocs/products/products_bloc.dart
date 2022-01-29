@@ -16,30 +16,26 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
 
   ProductsBloc({required ProductRepository productRepository})
       : _productRepository = productRepository,
-        super(ProductLoading());
+        super(ProductLoading()){
+    on<LoadProduct>(_LoadProduct);
+    on<UpdateProduct>(_UpdateProduct);
 
-  @override
-  Stream<ProductsState> mapEventToState(
-      ProductsEvent event,
-      ) async* {
-    if (event is LoadProduct) {
-      yield* _mapLoadCategoriesToState();
-    }
-    if (event is UpdateProduct) {
-      yield* _mapUpdateCategoriesToState(event);
-    }
   }
 
-  Stream<ProductsState> _mapLoadCategoriesToState() async* {
-    _categorySubscription?.cancel();
-    _categorySubscription = _productRepository
-        .getAllProduct()
-        .listen((c) => add(UpdateProduct(c)));
-    dev.log("state checking ${state.props.map((e) => e)}");
+
+  _LoadProduct(event, Emitter<ProductsState> emit) {
+  _categorySubscription?.cancel();
+  _categorySubscription = _productRepository
+      .getAllProduct()
+      .listen((c) => add(UpdateProduct(c)));
+  dev.log("state checking ${state.props.map((e) => e)}");
   }
 
-  Stream<ProductsState> _mapUpdateCategoriesToState(UpdateProduct event) async* {
+  _UpdateProduct(event, Emitter<ProductsState> emit)
+  {
+
     dev.log("state is is ${state.props}");
-    yield ProductLoaded(product: event.product);
+    emit(ProductLoaded(product: event.product));
   }
+
 }

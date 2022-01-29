@@ -1,4 +1,5 @@
 import 'package:ecom/blocs/cart/cart_bloc.dart';
+import 'package:ecom/blocs/wishlist/wishlist_bloc.dart';
 import 'package:ecom/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,13 +10,11 @@ class ProductCard extends StatelessWidget {
   final double leftPosition;
   final bool wishList;
 
-
   const ProductCard(
       {Key? key,
       required this.product,
       this.widthFactor = 2.5,
       this.leftPosition = 0,
-
       this.wishList = false})
       : super(key: key);
 
@@ -66,7 +65,9 @@ class ProductCard extends StatelessWidget {
                                 .bodyText2!
                                 .copyWith(color: Colors.white),
                           ),
-                          const SizedBox(height: 2,),
+                          const SizedBox(
+                            height: 2,
+                          ),
                           Text(
                             product.price.toString(),
                             style: Theme.of(context)
@@ -79,35 +80,50 @@ class ProductCard extends StatelessWidget {
                     ),
                     BlocBuilder<CartBloc, CartState>(
                       builder: (context, state) {
-                        if(state is CartLoading){
-                          return const  CircularProgressIndicator();
+                        if (state is CartLoading) {
+                          return const CircularProgressIndicator();
                         }
-                        if(state is CartLoaded){
+                        if (state is CartLoaded) {
                           return Center(
                             child: IconButton(
                                 onPressed: () {
-                                  context.read<CartBloc>().add(CartProductAdded(product));
-                                  var snackbar = const  SnackBar(content: Text("Added to Cart"));
-                                  ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                                  context
+                                      .read<CartBloc>()
+                                      .add(AddCart(product));
+                                  var snackbar = const SnackBar(
+                                      content: Text("Added to Cart"));
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackbar);
                                 },
                                 icon: const Icon(
                                   Icons.add_circle,
                                   color: Colors.white,
                                 )),
                           );
-                        }else {
+                        } else {
                           return const Text("Some Error");
                         }
                       },
                     ),
                     wishList
                         ? Center(
-                            child: IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.favorite,
-                                  color: Colors.white,
-                                )),
+                            child: BlocBuilder<WishlistBloc, WishlistState>(
+                              builder: (context, state) {
+                                return IconButton(
+                                    onPressed: () {
+                                      context.read<WishlistBloc>().add(RemoveProductFromWistList(product));
+                                      context.read<CartBloc>().add(AddCart(product));
+                                      var snackbar =
+                                      const SnackBar(content: Text("removed from WishList"));
+                                      ScaffoldMessenger.of(context)..removeCurrentSnackBar()
+                                        ..showSnackBar(snackbar);
+                                    },
+                                    icon: const Icon(
+                                      Icons.delete,
+                                      color: Colors.white,
+                                    ));
+                              },
+                            ),
                           )
                         : Container(),
                   ],

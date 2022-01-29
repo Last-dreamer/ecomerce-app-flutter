@@ -47,7 +47,7 @@ class ProductDetail extends StatelessWidget {
                     onPressed: () {
                       context
                           .read<WishlistBloc>()
-                          .add(AddWishListProduct(product));
+                          .add(AddProductToWishList(product));
                       var snackbar = const SnackBar(
                           content: Text("product added to your wishlist"));
                       ScaffoldMessenger.of(context).showSnackBar(snackbar);
@@ -64,7 +64,7 @@ class ProductDetail extends StatelessWidget {
                   return ElevatedButton(
                       style: ElevatedButton.styleFrom(primary: Colors.white),
                       onPressed: () {
-                        context.read<CartBloc>().add(CartProductAdded(product));
+                        context.read<CartBloc>().add(AddCart(product));
 
                         var snackbar =
                         const SnackBar(content: Text("Added to Cart"));

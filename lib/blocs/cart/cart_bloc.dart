@@ -11,45 +11,42 @@ part 'cart_state.dart';
 
 
 class CartBloc extends Bloc<CartEvent, CartState> {
-  CartBloc() : super(CartLoading());
+  CartBloc() : super(CartLoading()){
+    on<LoadCart>(_onLoadCart);
+    on<AddCart>(_onAddCart);
+    on<RemovedCart>(_onRemovedCart);
 
-  @override
-  Stream<CartState> mapEventToState(
-    CartEvent event,
-  ) async* {
-     if(event is CartStarted){
-       yield* _mapCartStartedToState();
-     }else if(event is CartProductAdded){
-       yield* _mapCartProductAddedToState(event, state);
-     }else if(event is CartProductRemoved){
-       yield* _mapCartProductRemovedToState(event, state);
-     }
   }
 
-  Stream<CartState> _mapCartStartedToState()async* {
-    yield CartLoading();
+
+  _onLoadCart(event, Emitter<CartState> emit) async {
+    emit(CartLoading());
     try{
       await Future.delayed(const Duration(seconds: 1));
-      yield CartLoaded();
+       emit(CartLoaded());
     }catch(e){}
   }
 
-
-  Stream<CartState> _mapCartProductAddedToState(CartProductAdded event, CartState state) async* {
+  _onAddCart(event, Emitter<CartState> emit){
+    var state = this.state;
     if(state is CartLoaded){
       try{
-        yield CartLoaded(cart: Cart(products: List.from(state.cart.products)..add(event.product)));
-      }catch(e){}
-    }
+        emit(CartLoaded(cart: Cart(products: List.from(state.cart.products)..add(event.product))));
+    }catch(e){}
+  }}
+
+  _onRemovedCart(event, Emitter<CartState> emit){
+    var state = this.state;
+    if(state is CartLoaded){
+      try{
+        emit(CartLoaded(cart: Cart(products: List.from(state.cart.products)..remove(event.product))));
+    }catch(e){}
+  }
   }
 
 
-  Stream<CartState> _mapCartProductRemovedToState(CartProductRemoved event, CartState state) async* {
-    if(state is CartLoaded){
-      try{
-        yield CartLoaded(cart: Cart(products: List.from(state.cart.products)..remove(event.product)));
-      }catch(e){}
-    }
-  }
+
+
+
 
 }
