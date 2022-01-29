@@ -11,6 +11,7 @@ import 'package:ecom/widgets/product_carousal.dart';
 import 'package:ecom/widgets/section_title.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:developer' as dev;
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -58,10 +59,13 @@ class HomeScreen extends StatelessWidget {
           BlocBuilder<ProductsBloc, ProductsState>(
             builder: (context, state) {
              if(state is ProductLoading){
+               dev.log("state is 22 ${state.props}");
                return  const Center(child: CircularProgressIndicator());
              }
              if(state is ProductLoaded){
-               return ProductCarousal(
+
+               return
+                 ProductCarousal(
                  productList: state.product.where((e) => e.isRecommended == true).toList()
                  // Product.products.where((e) => e.isRecommended == true).toList(),
                );
@@ -77,6 +81,7 @@ class HomeScreen extends StatelessWidget {
                 return  const Center(child: CircularProgressIndicator());
               }
               if(state is ProductLoaded){
+                dev.log("state is cat ${state.product.length}");
                 return ProductCarousal(
                     productList: state.product.where((e) => e.isPopular == true).toList()
                   // Product.products.where((e) => e.isRecommended == true).toList(),

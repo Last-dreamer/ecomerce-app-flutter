@@ -10,7 +10,8 @@ class Product extends Equatable {
   final bool isPopular;
 
   const Product(
-      {required this.name,
+      {
+      required this.name,
       required this.category,
       required this.imageUrl,
       required this.price,
@@ -22,19 +23,20 @@ class Product extends Equatable {
       [name, category, imageUrl, price, isRecommended, isPopular];
 
 
-  static Product fromFactory(DocumentSnapshot snap){
+  static Product fromFactory(Map<String,dynamic> snap){
     Product product = Product(
-
         name: snap['name'],
         category: snap['category'],
         imageUrl: snap['imageUrl'],
-        isRecommended: snap['isRecommended'],
+        isRecommended: snap['isRecommended'] ?? false,
         isPopular: snap['isPopular'],
         price: snap['price'],
-
     );
     return product;
   }
+
+
+
   static List<Product> products = [
     const Product(
         name: 'pepsi',

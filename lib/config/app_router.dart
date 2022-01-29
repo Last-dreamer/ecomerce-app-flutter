@@ -22,7 +22,7 @@ class AppRouter {
       case '/cart':
         return CartScreen.route();
       case '/catalog':
-        return CatalogScreen.route(category: settings.arguments as CategoryModel);
+        return CatalogScreen.route(category: settings.arguments  as CategoryModel);
 
       case '/product':
         return ProductDetail.route(product: settings.arguments as Product);
