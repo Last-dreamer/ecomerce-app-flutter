@@ -53,17 +53,21 @@ class ProductCard extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
-                    Expanded(
+                    Flexible(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
-                            product.name,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2!
-                                .copyWith(color: Colors.white),
+                          Row(
+                            children: [
+                              Text(
+                                product.name,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2!
+                                    .copyWith(color: Colors.white),
+                              ),
+                            ],
                           ),
                           const SizedBox(
                             height: 2,
@@ -111,11 +115,16 @@ class ProductCard extends StatelessWidget {
                               builder: (context, state) {
                                 return IconButton(
                                     onPressed: () {
-                                      context.read<WishlistBloc>().add(RemoveProductFromWistList(product));
-                                      context.read<CartBloc>().add(AddCart(product));
-                                      var snackbar =
-                                      const SnackBar(content: Text("removed from WishList"));
-                                      ScaffoldMessenger.of(context)..removeCurrentSnackBar()
+                                      context.read<WishlistBloc>().add(
+                                          RemoveProductFromWistList(product));
+                                      context
+                                          .read<CartBloc>()
+                                          .add(AddCart(product));
+                                      var snackbar = const SnackBar(
+                                          content:
+                                              Text("removed from WishList"));
+                                      ScaffoldMessenger.of(context)
+                                        ..removeCurrentSnackBar()
                                         ..showSnackBar(snackbar);
                                     },
                                     icon: const Icon(

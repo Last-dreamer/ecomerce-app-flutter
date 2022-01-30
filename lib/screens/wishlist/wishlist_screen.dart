@@ -11,9 +11,9 @@ class WishListScreen extends StatelessWidget {
   static const String routeName = '/wishlist';
 
   static Route route() => MaterialPageRoute(
-    settings: const RouteSettings(name: routeName),
-    builder: (_) => const WishListScreen(),
-  );
+        settings: const RouteSettings(name: routeName),
+        builder: (_) => const WishListScreen(),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class WishListScreen extends StatelessWidget {
                       child: ProductCard(
                         product: state.wishList.products[index],
                         widthFactor: 1.0,
-                        leftPosition: 200,
+                        leftPosition: 150,
                         wishList: true,
                       ),
                     );

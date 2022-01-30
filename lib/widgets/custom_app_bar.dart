@@ -21,7 +21,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
           child: Text(
             title,
-            style: Theme.of(context).textTheme.headline2!.copyWith(
+            style: Theme.of(context).textTheme.headline3!.copyWith(
                   color: Colors.white,
                 ),
           ),
